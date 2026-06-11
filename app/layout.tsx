@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
-import { Hanken_Grotesk, Lora } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import { FtaFooter } from "@/components/fta/FtaFooter";
 import { FtaNav } from "@/components/fta/FtaNav";
 import { PreviewBanner } from "@/components/fta/PreviewBanner";
 import { isAdminPreviewMode } from "@/lib/admin";
 import "./globals.css";
 
-const hankenGrotesk = Hanken_Grotesk({
-  variable: "--font-hanken",
+const poppins = Poppins({
+  variable: "--font-display",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["600", "700"],
 });
 
-const lora = Lora({
-  variable: "--font-lora",
+const inter = Inter({
+  variable: "--font-body",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -36,9 +36,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${hankenGrotesk.variable} ${lora.variable} h-full`}
+      className={`${poppins.variable} ${inter.variable} h-full`}
     >
-      <body className="flex min-h-full flex-col">
+      <body className="flex min-h-full flex-col font-sans">
         {isAdminPreviewMode() ? <PreviewBanner /> : null}
         <FtaNav />
         {children}

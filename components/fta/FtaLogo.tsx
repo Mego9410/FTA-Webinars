@@ -5,7 +5,6 @@ type FtaLogoProps = {
   className?: string;
   href?: string;
   size?: "sm" | "md";
-  /** Short "FTA" label below sm breakpoint */
   responsive?: boolean;
 };
 
@@ -18,15 +17,15 @@ export function FtaLogo({
   const plate = (
     <div
       className={cn(
-        "inline-flex items-center rounded-[14px] bg-[var(--gold)]",
+        "inline-flex items-center rounded-[14px] bg-fta-gold",
         size === "sm" ? "px-4 py-2" : "px-3 py-2 sm:px-5 sm:py-2.5",
         className,
       )}
     >
       <span
         className={cn(
-          "font-serif font-semibold leading-none tracking-tight text-[var(--ink)]",
-          size === "sm" ? "text-sm" : "text-sm sm:text-base",
+          "font-display font-semibold leading-none tracking-tight text-fta-ink",
+          size === "sm" ? "text-sm" : "text-sm sm:text-[15px]",
         )}
       >
         {responsive ? (

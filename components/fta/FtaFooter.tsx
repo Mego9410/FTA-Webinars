@@ -1,14 +1,10 @@
 import Link from "next/link";
 import { FtaLogo } from "@/components/fta/FtaLogo";
-
-const SOCIAL = [
-  "instagram",
-  "facebook",
-  "x",
-  "linkedin",
-  "youtube",
-  "whatsapp",
-] as const;
+import {
+  FTA_MAIN_WEBSITE,
+  FTA_SOCIAL_LINKS,
+  FTA_SOCIAL_ORDER,
+} from "@/lib/fta-links";
 
 const FOOTER_COLS = [
   {
@@ -31,7 +27,7 @@ const FOOTER_COLS = [
     links: [
       {
         label: "Main website",
-        href: "https://www.franktaylorandassociates.co.uk",
+        href: FTA_MAIN_WEBSITE,
         external: true,
       },
       { label: "Contact", href: "/contact" },
@@ -42,21 +38,23 @@ const FOOTER_COLS = [
 
 export function FtaFooter() {
   return (
-    <footer className="bg-[var(--ink-pure)] px-[var(--gutter)] py-12 text-white md:py-20">
-      <div className="fta-container grid gap-10 lg:grid-cols-[340px_1fr] lg:gap-12">
-        <div className="space-y-6">
+    <footer className="bg-fta-ink px-6 py-14 text-white md:py-20">
+      <div className="mx-auto grid max-w-[1200px] gap-10 lg:grid-cols-[340px_1fr] lg:gap-12">
+        <div className="space-y-5">
           <FtaLogo href="/" size="sm" />
-          <p className="max-w-sm text-[15px] leading-relaxed text-white/80">
+          <p className="max-w-sm text-[15px] leading-relaxed text-white/88">
             The UK&apos;s leading independent dental practice sales agency.
             Guiding practice owners with integrity since 1990.
           </p>
           <div className="flex flex-wrap gap-3">
-            {SOCIAL.map((name) => (
+            {FTA_SOCIAL_ORDER.map((name) => (
               <a
                 key={name}
-                href="https://www.franktaylorandassociates.co.uk"
+                href={FTA_SOCIAL_LINKS[name]}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={name}
-                className="transition-opacity hover:opacity-80"
+                className="transition-opacity duration-200 hover:opacity-85"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -94,7 +92,7 @@ export function FtaFooter() {
           ))}
         </div>
       </div>
-      <div className="fta-container mt-12 border-t border-white/10 pt-6 text-xs text-white/50">
+      <div className="mx-auto mt-10 max-w-[1200px] border-t border-white/12 pt-6 text-xs text-white/65">
         © {new Date().getFullYear()} Frank Taylor &amp; Associates. All rights reserved.
       </div>
     </footer>

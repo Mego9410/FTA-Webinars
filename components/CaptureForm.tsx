@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
 type FieldErrors = {
@@ -73,15 +75,15 @@ export function CaptureForm() {
       noValidate
     >
       <div className="space-y-2">
-        <label htmlFor="name" className="text-sm font-bold text-[var(--fg-1)]">
+        <Label htmlFor="name" className="text-[13px] font-semibold text-fta-ink">
           Your name
-        </label>
-        <input
+        </Label>
+        <Input
           id="name"
           name="name"
           type="text"
           autoComplete="name"
-          className={cn("field", fieldErrors.name && "border-red-500")}
+          className={cn(fieldErrors.name && "border-red-500")}
           placeholder="Jane Smith"
           value={name}
           onChange={(e) => {
@@ -101,15 +103,15 @@ export function CaptureForm() {
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="email" className="text-sm font-bold text-[var(--fg-1)]">
+        <Label htmlFor="email" className="text-[13px] font-semibold text-fta-ink">
           Email address
-        </label>
-        <input
+        </Label>
+        <Input
           id="email"
           name="email"
           type="email"
           autoComplete="email"
-          className={cn("field", fieldErrors.email && "border-red-500")}
+          className={cn(fieldErrors.email && "border-red-500")}
           placeholder="you@practice.co.uk"
           value={email}
           onChange={(e) => {
@@ -129,13 +131,19 @@ export function CaptureForm() {
       </div>
 
       {formError ? (
-        <p className="rounded-[var(--r-md)] border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800" role="alert">
+        <p
+          className="rounded-input border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800"
+          role="alert"
+        >
           {formError}
         </p>
       ) : null}
 
       {success ? (
-        <p className="fta-status-ok rounded-[var(--r-md)] px-4 py-3 text-sm" role="status">
+        <p
+          className="rounded-input border border-[color-mix(in_srgb,var(--pill-available)_35%,transparent)] bg-[color-mix(in_srgb,var(--pill-available)_8%,white)] px-4 py-3 text-sm text-[#1F7A3A]"
+          role="status"
+        >
           {success}
         </p>
       ) : null}

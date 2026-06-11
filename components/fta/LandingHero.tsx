@@ -1,27 +1,30 @@
-import Link from "next/link";
+import { Award, Shield, UserRound } from "lucide-react";
 import { CaptureForm } from "@/components/CaptureForm";
 import { Countdown } from "@/components/Countdown";
 import { WelcomeBack } from "@/components/WelcomeBack";
-import { buttonVariants } from "@/components/ui/button";
+import { FtaCard } from "@/components/fta/FtaCard";
+import { IconBadge } from "@/components/fta/IconBadge";
+import { Pill } from "@/components/fta/Pill";
+import { SectionWrapper } from "@/components/fta/SectionWrapper";
+import { ButtonLink } from "@/components/ui/button";
 import type { ReturningUser } from "@/lib/users";
 import type { WebinarSession } from "@/lib/sessions";
-import { cn } from "@/lib/utils";
 
 const FEATURES = [
   {
     title: "Seller-first advice",
     body: "Confidential guidance built around practice owners, not buyers.",
-    icon: "/fta/icons/icon3-circle-yellow-white-seller-only-representation.svg",
+    icon: Shield,
   },
   {
     title: "Trusted expertise",
     body: "Independent counsel from the UK's leading dental practice sales agency since 1990.",
-    icon: "/fta/icons/icon1-circle-yellow-white-your-journey-with-frank-taylor.svg",
+    icon: Award,
   },
   {
     title: "No login",
     body: "Name and email only. Return on this device without signing in again.",
-    icon: "/fta/icons/icon2-circle-yellow-white-vetted-buyers.svg",
+    icon: UserRound,
   },
 ] as const;
 
@@ -41,8 +44,8 @@ export function LandingHero({
 
   return (
     <>
-      <section className="fta-hero">
-        <div className="fta-container fta-hero-inner">
+      <section className="fta-hero fta-reveal">
+        <div className="fta-hero-inner">
           <p className="fta-hero-eyebrow">Frank Taylor &amp; Associates webinars</p>
           <h1 className="fta-hero-title">
             Helping you buy or sell your dental practice with confidence
@@ -53,8 +56,14 @@ export function LandingHero({
           </p>
 
           {session ? (
-            <div className="fta-hero-countdown">
-              <p className="fta-hero-session">Next session: {topic}</p>
+            <div className="fta-hero-session-strip">
+              <Pill tone="soon">Upcoming session</Pill>
+              <p className="fta-hero-session-topic">{topic}</p>
+            </div>
+          ) : null}
+
+          {session ? (
+            <div className="mt-8 w-full max-w-2xl">
               <Countdown
                 targetMs={new Date(session.start_time).getTime()}
                 serverNowMs={serverNowMs}
@@ -67,10 +76,12 @@ export function LandingHero({
 
       <section id="register" className="fta-register-wrap">
         <div className="fta-container mx-auto max-w-3xl">
-          <div className="fta-search-panel space-y-8 text-center">
+          <div className="fta-register-card space-y-8 text-center fta-reveal">
             <div className="space-y-2">
-              <h2>Register for the webinar</h2>
-              <p className="text-[var(--fg-2)]">
+              <h2 className="font-display text-[length:var(--fs-h2)] leading-tight">
+                Register for the webinar
+              </h2>
+              <p className="text-fta-muted">
                 {session
                   ? `Reserve your place for “${topic}”`
                   : "Reserve your place for the next expert session"}
@@ -83,53 +94,57 @@ export function LandingHero({
               <CaptureForm />
             )}
 
-            <div className="border-t border-[var(--border)] pt-6">
-              <p className="mb-3 text-sm text-[var(--fg-3)]">
+            <div className="border-t border-fta-border pt-6 pb-2">
+              <p className="mb-3 text-sm text-fta-muted">
                 Want to look around first?
               </p>
-              <Link
+              <ButtonLink
                 href="/webinar"
-                className={cn(
-                  buttonVariants({ variant: "outline" }),
-                  "fta-btn-mobile-full",
-                )}
+                variant="ghost"
+                className="fta-btn-mobile-full"
+                showArrow
               >
                 Preview the live room
-              </Link>
+              </ButtonLink>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="fta-band fta-section pt-12">
-        <div className="fta-container fta-feature-grid">
+      <SectionWrapper band="warm" className="fta-trust-band pt-16 md:pt-20">
+        <div className="grid gap-5 md:grid-cols-3">
           {FEATURES.map((card) => (
-            <article key={card.title} className="fta-feature-card">
-              <div className="disc-gold">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={card.icon} alt="" width={30} height={30} />
-              </div>
-              <h3>{card.title}</h3>
-              <p>{card.body}</p>
-            </article>
+            <FtaCard key={card.title} interactive className="flex h-full flex-col gap-4">
+              <IconBadge icon={card.icon} />
+              <h3 className="font-display text-[length:var(--fs-card-title)] font-semibold text-fta-ink">
+                {card.title}
+              </h3>
+              <p className="text-sm leading-relaxed text-fta-muted">{card.body}</p>
+            </FtaCard>
           ))}
         </div>
-      </section>
+      </SectionWrapper>
 
-      <section className="fta-cta-banner fta-container">
-        <div>
-          <h2>Ready to take the next step?</h2>
-          <p>Explore the webinar room or manage sessions in admin.</p>
+      <div className="fta-container pt-16 md:pt-24 pb-20 md:pb-28">
+        <div className="fta-cta-panel flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h2 className="font-display text-2xl font-bold md:text-3xl">
+              Ready to take the next step?
+            </h2>
+            <p className="mt-2 text-[15px]">
+              Explore the webinar room or manage sessions in admin.
+            </p>
+          </div>
+          <div className="fta-cta-actions">
+            <ButtonLink href="/webinar" variant="dark">
+              Go to live room
+            </ButtonLink>
+            <ButtonLink href="/admin" variant="outline-ink">
+              Admin
+            </ButtonLink>
+          </div>
         </div>
-        <div className="fta-cta-actions">
-          <Link href="/webinar" className={cn(buttonVariants({ variant: "dark" }))}>
-            Go to live room
-          </Link>
-          <Link href="/admin" className={cn(buttonVariants({ variant: "outline-ink" }))}>
-            Admin
-          </Link>
-        </div>
-      </section>
+      </div>
     </>
   );
 }

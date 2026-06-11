@@ -1,121 +1,127 @@
-/* ============================================================
-   Frank Taylor & Associates — Colour & Type Foundations
-   Premium UK dental practice sales & brokerage
-   ============================================================ */
+/* FTA Webinar Platform — design tokens */
 
 :root {
+  /* Brand */
+  --fta-gold: #E5A323;
+  --fta-gold-hover: #C9881A;
+  --fta-gold-soft: #FBF1DC;
 
-  /* ----- BRAND ----------------------------------------------------------- */
-  --gold:            #E4AD25;   /* primary brand gold — buttons, accents, CTAs */
-  --gold-hover:      #CE9A1B;   /* pressed / hover gold */
-  --gold-deep:       #B4862A;   /* deeper gold (logo plate, gradients)        */
-  --gold-tint:       #FBF1D6;   /* soft gold wash (icon discs, hover rows)    */
-  --gold-tint-2:     #F6E7BE;   /* slightly stronger gold wash                */
+  /* Ink / surfaces */
+  --fta-ink: #141414;
+  --fta-ink-2: #1F1F1F;
+  --fta-text: #242424;
+  --fta-muted: #6B6B6B;
+  --fta-bg: #FFFFFF;
+  --fta-bg-warm: #F5F3EF;
+  --fta-border: #EBE8E2;
 
-  /* ----- INK / NEUTRALS -------------------------------------------------- */
-  --ink:             #0F0F0A;   /* primary text, black buttons                */
-  --ink-pure:        #090909;   /* footer, true black surfaces                */
-  --fg-1:            #1A1A17;   /* headings                                   */
-  --fg-2:            #5E5E5A;   /* body / supporting copy (warm grey)         */
-  --fg-3:            #8C8C88;   /* muted captions, meta                       */
-  --fg-4:            #B6B6B2;   /* placeholder text                           */
+  /* Status pills */
+  --pill-nhs: #E8567A;
+  --pill-private: #7C6BD8;
+  --pill-mixed: #3FA796;
+  --pill-available: #2FA84F;
+  --pill-live: #E5A323;
 
-  --surface:         #FFFFFF;   /* default page background                    */
-  --surface-2:       #F4F4F3;   /* alternating section band                   */
-  --surface-3:       #EFEFEE;   /* practice cards, image placeholders         */
-  --surface-disc:    #F3F3F1;   /* neutral icon disc background               */
+  /* Radii */
+  --radius-card: 20px;
+  --radius-input: 12px;
+  --radius-pill: 9999px;
 
-  --border:          #E7E7E4;   /* hairline dividers                          */
-  --border-strong:   #1A1A17;   /* dark outline buttons (nav)                 */
-  --border-gold:     #E4AD25;   /* gold outline cards & buttons               */
+  /* Elevation */
+  --shadow-card: 0 10px 30px rgba(20, 20, 20, 0.06);
+  --shadow-card-hover: 0 16px 40px rgba(20, 20, 20, 0.1);
+  --shadow-float: 0 20px 50px rgba(20, 20, 20, 0.12);
 
-  /* ----- SEMANTIC / STATUS ----------------------------------------------- */
-  --available:       #2DD443;   /* "Available" tick + text                    */
-  --available-fg:    #1AA836;   /* available text on light                    */
-  --badge-nhs-bg:    #E6F0FA;   --badge-nhs-fg:   #2F77BE;   /* NHS practice  */
-  --badge-mixed-bg:  #F7E8F6;   --badge-mixed-fg: #A23B9E;   /* Mixed         */
-  --badge-private-bg:#E5F7EA;   --badge-private-fg:#1F9D4D;  /* Private       */
-  --star:            #E4AD25;   /* review stars                               */
+  /* Typography scale */
+  --fs-hero: clamp(2.125rem, 5vw, 4rem);
+  --fs-h2: clamp(1.75rem, 3vw, 2.5rem);
+  --fs-card-title: 1.125rem;
+  --fs-body: 1rem;
+  --fs-eyebrow: 0.8125rem;
 
-  /* ----- TYPE FAMILIES --------------------------------------------------- */
-  --font-sans:  var(--font-hanken), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-serif: var(--font-lora), Georgia, 'Times New Roman', serif;
-  --font-display: var(--font-sans);
-
-  /* ----- TYPE SCALE (desktop) -------------------------------------------- */
-  --fs-display:  64px;   --lh-display: 1.05;   /* hero H1                      */
-  --fs-h1:       48px;   --lh-h1:      1.08;   /* section titles               */
-  --fs-h2:       34px;   --lh-h2:      1.12;
-  --fs-h3:       22px;   --lh-h3:      1.25;   /* card titles                  */
-  --fs-h4:       18px;   --lh-h4:      1.3;
-  --fs-lead:     18px;   --lh-lead:    1.6;    /* intro paragraphs             */
-  --fs-body:     16px;   --lh-body:    1.65;
-  --fs-sm:       14px;   --lh-sm:      1.5;
-  --fs-xs:       12.5px; --lh-xs:      1.4;    /* meta, refs, eyebrows         */
-
-  --tracking-tight: -0.02em;  /* headings              */
-  --tracking-snug:  -0.01em;
-  --tracking-wide:   0.08em;  /* eyebrow / overline    */
-
-  /* ----- RADII ----------------------------------------------------------- */
-  --r-xs:   8px;
-  --r-sm:   12px;
-  --r-md:   16px;    /* buttons, inputs, small cards   */
-  --r-lg:   20px;    /* cards, image frames            */
-  --r-xl:   28px;    /* hero image, large panels       */
-  --r-pill: 999px;
-
-  /* ----- SHADOWS / ELEVATION --------------------------------------------- */
-  --shadow-xs: 0 1px 2px rgba(15,15,10,.05);
-  --shadow-sm: 0 2px 8px rgba(15,15,10,.06);
-  --shadow-md: 0 10px 28px rgba(15,15,10,.08);
-  --shadow-lg: 0 24px 60px rgba(15,15,10,.12);
-  --shadow-gold: 0 10px 24px rgba(228,173,37,.28);
-
-  /* ----- SPACING (4px base) ---------------------------------------------- */
-  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px; --sp-5: 20px;
-  --sp-6: 24px; --sp-8: 32px; --sp-10: 40px; --sp-12: 48px; --sp-16: 64px;
-  --sp-20: 80px; --sp-24: 96px; --sp-32: 128px;
-
-  --container: 1200px;     /* max content width   */
+  /* Legacy aliases (keep behaviour-layer refs working) */
+  --gold: var(--fta-gold);
+  --gold-hover: var(--fta-gold-hover);
+  --gold-tint: var(--fta-gold-soft);
+  --gold-deep: var(--fta-gold-hover);
+  --gold-ink: #7A5A12;
+  --ink: var(--fta-ink);
+  --ink-pure: var(--fta-ink);
+  --fg-1: var(--fta-text);
+  --fg-2: var(--fta-muted);
+  --fg-3: #5A5A5A;
+  --surface: var(--fta-bg);
+  --surface-2: var(--fta-bg-warm);
+  --surface-3: #EEEBE5;
+  --border: var(--fta-border);
+  --available: var(--pill-available);
+  --available-fg: #1F8A3D;
+  --container: 1200px;
   --gutter: 24px;
-
-  /* ----- MOTION ---------------------------------------------------------- */
-  --ease: cubic-bezier(.4, 0, .2, 1);
-  --ease-out: cubic-bezier(.16, 1, .3, 1);
-  --dur-fast: 140ms;
-  --dur: 220ms;
-  --dur-slow: 380ms;
+  --r-xs: 8px;
+  --r-sm: var(--radius-input);
+  --r-md: 16px;
+  --r-lg: var(--radius-card);
+  --r-xl: 28px;
+  --r-pill: var(--radius-pill);
+  --shadow-sm: var(--shadow-card);
+  --shadow-md: var(--shadow-card-hover);
+  --shadow-lg: var(--shadow-float);
+  --shadow-gold: 0 10px 24px rgba(229, 163, 35, 0.28);
+  --dur: 200ms;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --tracking-tight: -0.02em;
+  --tracking-wide: 0.12em;
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-display);
+  --fs-h1: var(--fs-hero);
+  --lh-h1: 1.05;
+  --fs-lead: 1.0625rem;
+  --lh-lead: 1.6;
+  --lh-body: 1.6;
 }
 
-/* ============================================================
-   SEMANTIC ELEMENT DEFAULTS
-   ============================================================ */
-body {
-  font-family: var(--font-sans);
-  font-size: var(--fs-body);
-  line-height: var(--lh-body);
-  color: var(--fg-2);
-  background: var(--surface);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+@media (max-width: 639px) {
+  :root {
+    --gutter: 16px;
+  }
 }
 
-h1, h2, h3, h4 { color: var(--fg-1); font-weight: 800; letter-spacing: var(--tracking-tight); text-wrap: balance; margin: 0; }
+@layer base {
+  body {
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    color: var(--fta-text);
+    background: var(--fta-bg);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
 
-.display { font-size: var(--fs-display); line-height: var(--lh-display); font-weight: 800; letter-spacing: var(--tracking-tight); }
-h1, .h1   { font-size: var(--fs-h1);  line-height: var(--lh-h1); }
-h2, .h2   { font-size: var(--fs-h2);  line-height: var(--lh-h2); }
-h3, .h3   { font-size: var(--fs-h3);  line-height: var(--lh-h3); font-weight: 700; }
-h4, .h4   { font-size: var(--fs-h4);  line-height: var(--lh-h4); font-weight: 700; }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    color: var(--fta-ink);
+    font-weight: 700;
+    letter-spacing: var(--tracking-tight);
+    text-wrap: balance;
+    margin: 0;
+  }
 
-.lead { font-size: var(--fs-lead); line-height: var(--lh-lead); color: var(--fg-2); }
-.eyebrow { font-size: var(--fs-xs); font-weight: 700; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--gold-deep); }
-small, .small { font-size: var(--fs-sm); line-height: var(--lh-sm); }
-.meta { font-size: var(--fs-xs); color: var(--fg-3); }
+  a:not([data-slot="button"]) {
+    color: inherit;
+    text-decoration: none;
+  }
+}
 
-/* gold "kicker" date used on article cards */
-.kicker-date { font-size: var(--fs-xs); font-weight: 700; color: var(--gold-deep); letter-spacing: .01em; }
-
-a { color: inherit; text-decoration: none; }
-.link-gold { color: var(--gold-deep); font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

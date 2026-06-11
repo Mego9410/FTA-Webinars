@@ -13,7 +13,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import Link from "next/link";
+import { FtaAdminTabs } from "@/components/fta/FtaAdminTabs";
+import { FtaCard } from "@/components/fta/FtaCard";
 
 type Session = {
   id: string;
@@ -126,30 +127,23 @@ export function SessionManager() {
   }
 
   return (
-    <div className="fta-container space-y-10 py-10">
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-extrabold text-[var(--fg-1)]">Session admin</h1>
-          <p className="text-sm text-[var(--fg-3)]">Create and edit webinar sessions</p>
+    <div className="mx-auto max-w-[1200px] space-y-8 px-6 py-10 md:py-14">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div className="space-y-3">
+          <h1 className="font-display text-3xl font-bold text-fta-ink">Session admin</h1>
+          <p className="text-sm text-fta-muted">Create and edit webinar sessions</p>
+          <FtaAdminTabs />
         </div>
-        <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
-          <Link
-            href="/admin/analytics"
-            className="inline-flex h-auto w-full items-center justify-center rounded-[var(--r-md)] border-[1.5px] border-[var(--gold)] bg-white px-[22px] py-3.5 text-[15px] font-bold text-[var(--ink)] transition-all hover:bg-[var(--gold-tint)] sm:w-auto"
-          >
-            Analytics
-          </Link>
-          <form action={adminLogout} className="w-full sm:w-auto">
-            <Button type="submit" variant="outline-ink" className="w-full sm:w-auto">
-              Sign out
-            </Button>
-          </form>
-        </div>
+        <form action={adminLogout} className="w-full sm:w-auto">
+          <Button type="submit" variant="outline-ink" className="w-full sm:w-auto">
+            Sign out
+          </Button>
+        </form>
       </div>
 
       <form
         onSubmit={onSubmit}
-        className="grid gap-4 rounded-[var(--r-lg)] border border-[var(--border)] bg-white p-6 shadow-[var(--shadow-sm)] md:grid-cols-2"
+        className="grid gap-4 rounded-card border border-fta-border bg-fta-bg p-6 shadow-card md:grid-cols-2 md:p-8"
       >
         <div className="md:col-span-2">
           <h2 className="font-bold text-[var(--fg-1)]">
@@ -205,7 +199,7 @@ export function SessionManager() {
         </div>
       </form>
 
-      <div className="overflow-x-auto rounded-[var(--r-lg)] border border-[var(--border)] bg-white">
+      <FtaCard className="overflow-x-auto p-0">
         <Table>
           <TableHeader>
             <TableRow>
@@ -234,7 +228,7 @@ export function SessionManager() {
             ))}
           </TableBody>
         </Table>
-      </div>
+      </FtaCard>
     </div>
   );
 }

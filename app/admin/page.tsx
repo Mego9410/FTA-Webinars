@@ -9,9 +9,9 @@ export default async function AdminPage() {
 
   if (!authed) {
     return (
-      <main className="fta-section flex flex-1 flex-col items-center justify-center">
-        <div className="w-full max-w-md space-y-6 text-center">
-          <h1 className="text-2xl font-extrabold text-[var(--fg-1)]">Admin</h1>
+      <main className="flex flex-1 flex-col items-center justify-center bg-fta-warm px-6 py-20">
+        <div className="w-full max-w-md space-y-6 rounded-card border border-fta-border bg-fta-bg p-8 text-center shadow-card">
+          <h1 className="font-display text-2xl font-bold text-fta-ink">Admin</h1>
           <AdminLoginForm />
         </div>
       </main>

@@ -13,7 +13,7 @@ export function createDemoSession(nowMs = Date.now()): WebinarSession {
     duration_seconds: 3600,
     mux_playback_id: null,
     cta_label: "Download our Exit Readiness Planner",
-    cta_url: "https://www.franktaylorandassociates.co.uk",
+    cta_url: "https://www.ft-associates.com/",
   };
 }
 

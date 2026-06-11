@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { RetentionChart } from "@/components/admin/RetentionChart";
+import { FtaAdminTabs } from "@/components/fta/FtaAdminTabs";
+import { FtaCard } from "@/components/fta/FtaCard";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -56,15 +58,11 @@ export function AnalyticsDashboard({
   );
 
   return (
-    <div className="fta-container space-y-10 py-10">
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-extrabold text-[var(--fg-1)]">Analytics</h1>
-          <p className="text-sm text-[var(--fg-3)]">First-party funnel and session engagement</p>
-        </div>
-        <Link href="/admin" className="text-sm font-bold text-[var(--gold-deep)] hover:underline">
-          ← Sessions
-        </Link>
+    <div className="mx-auto max-w-[1200px] space-y-8 px-6 py-10 md:py-14">
+      <div className="space-y-3">
+        <h1 className="font-display text-3xl font-bold text-fta-ink">Analytics</h1>
+        <p className="text-sm text-fta-muted">First-party funnel and session engagement</p>
+        <FtaAdminTabs />
       </div>
 
       <form className="flex flex-wrap items-end gap-3" method="get">
@@ -86,14 +84,16 @@ export function AnalyticsDashboard({
           { label: "Avg attendance %", value: `${summary.avgAttendanceRate}%` },
           { label: "Last session peak", value: summary.lastSessionPeakConcurrent },
         ].map((card) => (
-          <div key={card.label} className="rounded-[var(--r-lg)] border border-[var(--border)] bg-white p-5 shadow-[var(--shadow-sm)]">
-            <p className="text-xs font-bold uppercase tracking-wide text-[var(--fg-3)]">{card.label}</p>
-            <p className="mt-2 text-2xl font-extrabold text-[var(--fg-1)]">{card.value}</p>
+          <div key={card.label} className="fta-stat-card">
+            <p className="text-xs font-semibold tracking-[0.1em] text-fta-muted uppercase">
+              {card.label}
+            </p>
+            <p className="fta-stat-value mt-2">{card.value}</p>
           </div>
         ))}
       </div>
 
-      <div className="overflow-x-auto rounded-[var(--r-lg)] border border-[var(--border)] bg-white">
+      <FtaCard className="overflow-x-auto p-0">
         <Table>
           <TableHeader>
             <TableRow>
@@ -120,7 +120,7 @@ export function AnalyticsDashboard({
                 <TableCell>{session.peakConcurrent}</TableCell>
                 <TableCell>{session.ctaRate}%</TableCell>
                 <TableCell>
-                  <Link href={`/admin/analytics?from=${from}&to=${to}&session=${session.id}`} className="text-sm font-bold text-[var(--gold-deep)]">
+                  <Link href={`/admin/analytics?from=${from}&to=${to}&session=${session.id}`} className="text-sm font-bold text-[var(--gold-ink)]">
                     Detail
                   </Link>
                 </TableCell>
@@ -128,16 +128,20 @@ export function AnalyticsDashboard({
             ))}
           </TableBody>
         </Table>
-      </div>
+      </FtaCard>
 
       {selected ? (
         <div className="grid gap-6 lg:grid-cols-2">
-          <div className="rounded-[var(--r-lg)] border border-[var(--border)] bg-white p-6 shadow-[var(--shadow-sm)]">
-            <h2 className="mb-4 font-bold text-[var(--fg-1)]">Retention — {selected.topic}</h2>
+          <FtaCard>
+            <h2 className="mb-4 font-display text-lg font-semibold text-fta-ink">
+              Retention — {selected.topic}
+            </h2>
             <RetentionChart data={retention} />
-          </div>
-          <div className="rounded-[var(--r-lg)] border border-[var(--border)] bg-white p-6 shadow-[var(--shadow-sm)]">
-            <h2 className="mb-4 font-bold text-[var(--fg-1)]">Join-time distribution</h2>
+          </FtaCard>
+          <FtaCard>
+            <h2 className="mb-4 font-display text-lg font-semibold text-fta-ink">
+              Join-time distribution
+            </h2>
             <ul className="space-y-2 text-sm">
               {joinHistogram.length ? (
                 joinHistogram.map((b) => (
@@ -150,9 +154,9 @@ export function AnalyticsDashboard({
                 <li className="text-[var(--fg-3)]">No join events yet</li>
               )}
             </ul>
-          </div>
-          <div className="rounded-[var(--r-lg)] border border-[var(--border)] bg-white p-6 shadow-[var(--shadow-sm)] lg:col-span-2">
-            <h2 className="mb-4 font-bold text-[var(--fg-1)]">Email funnel</h2>
+          </FtaCard>
+          <FtaCard className="lg:col-span-2">
+            <h2 className="mb-4 font-display text-lg font-semibold text-fta-ink">Email funnel</h2>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               {[
                 { label: "Sent", value: emailFunnel.sent },
@@ -160,13 +164,15 @@ export function AnalyticsDashboard({
                 { label: "Opened", value: emailFunnel.opened },
                 { label: "Clicked", value: emailFunnel.clicked },
               ].map((item) => (
-                <div key={item.label} className="rounded-[var(--r-md)] bg-[var(--surface-2)] p-4 text-center">
-                  <p className="text-xs font-bold uppercase text-[var(--fg-3)]">{item.label}</p>
-                  <p className="mt-1 text-xl font-extrabold">{item.value}</p>
+                <div key={item.label} className="rounded-card bg-fta-warm p-4 text-center">
+                  <p className="text-xs font-semibold tracking-[0.08em] text-fta-muted uppercase">
+                    {item.label}
+                  </p>
+                  <p className="mt-1 font-display text-xl font-bold text-fta-ink">{item.value}</p>
                 </div>
               ))}
             </div>
-          </div>
+          </FtaCard>
         </div>
       ) : null}
     </div>

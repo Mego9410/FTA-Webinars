@@ -3,9 +3,11 @@
 import MuxPlayer from "@mux/mux-player-react";
 import type MuxPlayerElement from "@mux/mux-player";
 import type { MuxPlayerCSSProperties } from "@mux/mux-player-react";
+import { Play } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { PlaceholderPlayer } from "@/components/PlaceholderPlayer";
-import { Button } from "@/components/ui/button";
+import { Pill } from "@/components/fta/Pill";
+import { Button, ButtonLink } from "@/components/ui/button";
 import { useServerClock } from "@/hooks/useServerClock";
 import { isDemoSessionId } from "@/lib/demo-session";
 import type { WebinarSession } from "@/lib/sessions";
@@ -16,7 +18,7 @@ const playerStyle = {
   aspectRatio: "16/9",
   width: "100%",
   maxWidth: "960px",
-  borderRadius: "var(--r-xl)",
+  borderRadius: "var(--radius-card)",
   overflow: "hidden",
   "--seek-backward-button": "none",
   "--seek-forward-button": "none",
@@ -37,17 +39,15 @@ function SessionCta({ session }: { session: WebinarSession }) {
 
   return (
     <div className="mt-6 flex justify-center">
-      <a
+      <ButtonLink
         href={session.cta_url}
         target="_blank"
         rel="noopener noreferrer"
         onClick={() => void track("cta_click", { session_id: session.id })}
-        className="inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--gold)] px-6 py-3.5 text-[15px] font-bold text-[var(--ink)] shadow-[var(--shadow-gold)] transition hover:bg-[var(--gold-hover)]"
+        size="lg"
       >
         {session.cta_label}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/fta/icons/right-yellow-plain-arrow.svg" alt="" width={14} height={14} />
-      </a>
+      </ButtonLink>
     </div>
   );
 }
@@ -202,15 +202,23 @@ export function LivePlayer({ session, serverNowMs }: LivePlayerProps) {
 
   if (!token) {
     return (
-      <div className="fta-container mx-auto flex max-w-4xl aspect-video items-center justify-center rounded-[var(--r-xl)] bg-[var(--ink)] text-white/80">
+      <div className="fta-container mx-auto flex max-w-4xl aspect-video items-center justify-center rounded-card bg-fta-ink text-white/80">
         Loading live stream…
       </div>
     );
   }
 
   return (
-    <div className="fta-container relative mx-auto w-full max-w-4xl px-0">
-      <div className="relative" onContextMenu={(e) => e.preventDefault()}>
+    <div className="fta-container mx-auto w-full max-w-4xl space-y-5">
+      <div className="space-y-2 text-center md:text-left">
+        <Pill tone="live" pulse>
+          Live now
+        </Pill>
+        <h2 className="font-display text-2xl font-bold text-fta-ink">{session.topic}</h2>
+        <p className="text-sm text-fta-muted">Hosted by {session.host_name}</p>
+      </div>
+
+      <div className="fta-player-frame relative" onContextMenu={(e) => e.preventDefault()}>
         <MuxPlayer
           ref={playerRef}
           playbackId={session.mux_playback_id!}
@@ -236,21 +244,22 @@ export function LivePlayer({ session, serverNowMs }: LivePlayerProps) {
         />
 
         {needsGesture ? (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 rounded-[var(--r-xl)] bg-[var(--ink)]/85 text-center text-white">
-            <p className="text-lg font-bold">Join the live session</p>
-            <p className="max-w-xs text-sm text-white/80">
+          <div className="fta-play-overlay">
+            <p className="font-display text-xl font-bold">Join the live session</p>
+            <p className="max-w-xs text-sm text-white/82">
               Tap below to start at the current live position (
               {Math.floor(offsetSec / 60)}:
               {String(Math.floor(offsetSec % 60)).padStart(2, "0")} in).
             </p>
+            <button
+              type="button"
+              className="fta-play-button"
+              onClick={() => void onJoinClick()}
+              aria-label="Join the live session"
+            >
+              <Play className="size-8 fill-fta-ink text-fta-ink" />
+            </button>
             <Button type="button" size="lg" onClick={() => void onJoinClick()}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/fta/icons/play-yellow-white-circle-icon.svg"
-                alt=""
-                width={22}
-                height={22}
-              />
               Join the live session
             </Button>
           </div>

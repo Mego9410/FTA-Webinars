@@ -1,40 +1,39 @@
 import { Button as ButtonPrimitive } from "@base-ui/react/button"
 import { cva, type VariantProps } from "class-variance-authority"
+import { ArrowRight } from "lucide-react"
+import Link from "next/link"
+import type { ComponentProps } from "react"
 
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center gap-2 rounded-[var(--r-md)] border-[1.5px] border-transparent bg-clip-padding text-[15px] font-bold whitespace-nowrap transition-all duration-[var(--dur)] ease-[var(--ease)] outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-0 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/button inline-flex shrink-0 items-center justify-center gap-2.5 rounded-pill border-[1.5px] border-transparent bg-clip-padding px-7 py-3.5 text-[15px] font-semibold whitespace-nowrap no-underline transition-[background-color,color,box-shadow,transform] duration-200 outline-none select-none focus-visible:ring-2 focus-visible:ring-fta-gold/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         default:
-          "bg-[var(--gold)] text-[var(--ink)] hover:bg-[var(--gold-hover)] hover:-translate-y-px hover:shadow-[var(--shadow-gold)]",
+          "bg-fta-gold text-fta-ink hover:bg-fta-ink hover:text-white [&_.btn-arrow]:text-fta-ink hover:[&_.btn-arrow]:text-fta-gold",
         dark:
-          "bg-[var(--ink)] text-white hover:bg-black hover:-translate-y-px hover:shadow-[var(--shadow-md)]",
+          "bg-fta-ink text-white hover:bg-fta-gold hover:text-fta-ink [&_.btn-arrow]:text-white hover:[&_.btn-arrow]:text-fta-ink",
         outline:
-          "border-[var(--gold)] bg-white text-[var(--ink)] hover:bg-[var(--gold-tint)] hover:-translate-y-px",
+          "border-fta-ink bg-transparent text-fta-ink hover:bg-fta-ink hover:text-white [&_.btn-arrow]:text-fta-ink hover:[&_.btn-arrow]:text-fta-gold",
+        "outline-gold":
+          "border-fta-gold bg-transparent text-fta-ink hover:bg-fta-gold hover:text-fta-ink",
         "outline-ink":
-          "border-[var(--ink)] bg-white text-[var(--ink)] hover:bg-[var(--ink)] hover:text-white hover:-translate-y-px",
+          "border-fta-ink bg-fta-bg text-fta-ink hover:bg-fta-ink hover:text-white [&_.btn-arrow]:text-fta-ink hover:[&_.btn-arrow]:text-fta-gold",
         secondary:
-          "bg-[var(--surface-2)] text-[var(--fg-1)] hover:bg-[var(--surface-3)]",
+          "bg-fta-warm text-fta-text hover:bg-fta-gold-soft",
         ghost:
-          "border-transparent bg-transparent px-1.5 text-[var(--ink)] hover:text-[var(--gold-deep)]",
+          "border-transparent bg-transparent px-2 text-fta-ink hover:text-fta-gold-hover",
         destructive:
-          "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20",
-        link: "border-transparent text-[var(--gold-deep)] underline-offset-4 hover:underline",
+          "bg-destructive/10 text-destructive hover:bg-destructive/20",
+        link: "border-transparent px-0 text-fta-ink underline-offset-4 hover:text-fta-gold-hover hover:underline",
       },
       size: {
-        default: "h-auto px-[22px] py-3.5",
-        xs: "h-auto gap-1 rounded-[var(--r-sm)] px-3 py-2 text-xs",
-        sm: "h-auto rounded-[var(--r-sm)] px-4 py-2.5 text-sm",
-        lg: "h-auto px-7 py-[17px] text-base",
-        icon: "size-8",
-        "icon-xs":
-          "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
-        "icon-sm":
-          "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
-        "icon-lg": "size-9",
+        default: "px-7 py-3.5",
+        sm: "px-5 py-2.5 text-sm",
+        lg: "px-8 py-4 text-base",
+        icon: "size-10 rounded-full p-0",
       },
     },
     defaultVariants: {
@@ -44,19 +43,88 @@ const buttonVariants = cva(
   }
 )
 
+function shouldShowArrow(
+  variant: ButtonProps["variant"],
+  showArrow?: boolean,
+) {
+  if (variant === "link" || variant === "destructive") return false;
+  if (showArrow) return true;
+  return (
+    variant === "default" ||
+    variant === "dark" ||
+    variant === "outline" ||
+    variant === "outline-ink"
+  );
+}
+
+function ButtonArrow({ className }: { className?: string }) {
+  return (
+    <ArrowRight
+      className={cn(
+        "btn-arrow size-4 transition-[transform,color] duration-200 group-hover/button:translate-x-0.5",
+        className,
+      )}
+      aria-hidden
+    />
+  )
+}
+
+type ButtonProps = ButtonPrimitive.Props &
+  VariantProps<typeof buttonVariants> & {
+    showArrow?: boolean;
+  }
+
 function Button({
   className,
   variant = "default",
   size = "default",
+  showArrow = false,
+  children,
   ...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
+}: ButtonProps) {
+  const withArrow = shouldShowArrow(variant, showArrow);
+
   return (
     <ButtonPrimitive
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
-    />
+    >
+      {children}
+      {withArrow && variant !== "link" && variant !== "ghost" ? (
+        <ButtonArrow />
+      ) : null}
+    </ButtonPrimitive>
   )
 }
 
-export { Button, buttonVariants }
+type ButtonLinkProps = ComponentProps<typeof Link> &
+  VariantProps<typeof buttonVariants> & {
+    showArrow?: boolean;
+  }
+
+function ButtonLink({
+  className,
+  variant = "default",
+  size = "default",
+  showArrow = false,
+  children,
+  ...props
+}: ButtonLinkProps) {
+  const withArrow = shouldShowArrow(variant, showArrow);
+
+  return (
+    <Link
+      data-slot="button"
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
+    >
+      {children}
+      {withArrow && variant !== "link" && variant !== "ghost" ? (
+        <ButtonArrow />
+      ) : null}
+    </Link>
+  )
+}
+
+export { Button, ButtonArrow, ButtonLink, buttonVariants }

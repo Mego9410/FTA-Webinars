@@ -1,48 +1,65 @@
-import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
+import { Mail, Phone } from "lucide-react";
+import { FtaCard } from "@/components/fta/FtaCard";
+import { IconBadge } from "@/components/fta/IconBadge";
+import { SectionWrapper } from "@/components/fta/SectionWrapper";
+import { ButtonLink } from "@/components/ui/button";
+import {
+  FTA_EMAIL,
+  FTA_MAIN_WEBSITE,
+  FTA_PHONE_DISPLAY,
+  FTA_PHONE_TEL,
+} from "@/lib/fta-links";
 import { cn } from "@/lib/utils";
 
 export default function ContactPage() {
   return (
     <main className="flex flex-1 flex-col">
-      <section className="fta-band fta-section">
-        <div className="fta-container mx-auto max-w-3xl space-y-6 text-center">
-          <p className="fta-eyebrow">Contact</p>
-          <h1 className="fta-page-heading">Speak with the FTA team</h1>
-          <p className="lead mx-auto max-w-xl">
+      <SectionWrapper band="warm" className="fta-contact-hero">
+        <div className="mx-auto max-w-3xl space-y-5 text-center">
+          <p className="text-[13px] font-semibold tracking-[0.12em] text-fta-gold uppercase">
+            Contact
+          </p>
+          <h1 className="font-display text-[length:var(--fs-h2)] font-bold">
+            Speak with the FTA team
+          </h1>
+          <p className="mx-auto max-w-xl text-fta-muted">
             This webinar platform is part of Frank Taylor &amp; Associates. For
             valuations, sales advice, or general enquiries, reach out through the
             channels below.
           </p>
         </div>
-      </section>
+      </SectionWrapper>
 
-      <section className="fta-section pt-0">
-        <div className="fta-container grid max-w-4xl gap-5 sm:grid-cols-2">
+      <SectionWrapper className="pt-0">
+        <div className="mx-auto grid max-w-4xl gap-5 sm:grid-cols-2">
           {[
             {
               title: "Book a valuation",
               body: "Confidential practice valuations with no obligation.",
-              href: "https://www.franktaylorandassociates.co.uk",
+              href: FTA_MAIN_WEBSITE,
               highlight: true,
+              icon: Phone,
             },
             {
               title: "Call the team",
-              body: "Speak with an advisor during office hours.",
-              href: "tel:+441234567890",
+              body: `Speak with an advisor on ${FTA_PHONE_DISPLAY} during office hours.`,
+              href: FTA_PHONE_TEL,
               highlight: false,
+              icon: Phone,
             },
             {
               title: "Email us",
-              body: "info@franktaylorandassociates.co.uk",
-              href: "mailto:info@franktaylorandassociates.co.uk",
+              body: FTA_EMAIL,
+              href: `mailto:${FTA_EMAIL}`,
               highlight: false,
+              icon: Mail,
             },
             {
               title: "Main website",
               body: "Browse services, guides, and practices for sale.",
-              href: "https://www.franktaylorandassociates.co.uk",
+              href: FTA_MAIN_WEBSITE,
               highlight: false,
+              icon: Phone,
             },
           ].map((card) => (
             <a
@@ -50,52 +67,44 @@ export default function ContactPage() {
               href={card.href}
               target={card.href.startsWith("http") ? "_blank" : undefined}
               rel={card.href.startsWith("http") ? "noopener noreferrer" : undefined}
-              className={cn(
-                "feature-card rounded-[var(--r-lg)] p-6 transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)]",
-                card.highlight
-                  ? "bg-[var(--gold)] text-[var(--ink)]"
-                  : "bg-white shadow-[var(--shadow-sm)]",
-              )}
             >
-              <div
+              <FtaCard
+                interactive
                 className={cn(
-                  "disc-gold mb-4",
-                  card.highlight && "bg-[var(--ink)] [&_img]:invert",
+                  "h-full",
+                  card.highlight && "border-fta-gold/40 bg-fta-gold-soft",
                 )}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/fta/icons/icon2-circle-yellow-white.svg"
-                  alt=""
-                  width={28}
-                  height={28}
+                <IconBadge
+                  icon={card.icon}
+                  variant={card.highlight ? "solid" : "soft"}
+                  className="mb-4"
                 />
-              </div>
-              <h2 className="text-lg font-bold">{card.title}</h2>
-              <p
-                className={cn(
-                  "mt-2 text-sm leading-relaxed",
-                  card.highlight ? "text-[var(--ink)]/80" : "text-[var(--fg-2)]",
-                )}
-              >
-                {card.body}
-              </p>
+                <h2 className="font-display text-lg font-semibold text-fta-ink">
+                  {card.title}
+                </h2>
+                <p
+                  className={cn(
+                    "mt-2 text-sm leading-relaxed",
+                    card.highlight ? "text-fta-ink/80" : "text-fta-muted",
+                  )}
+                >
+                  {card.body}
+                </p>
+              </FtaCard>
             </a>
           ))}
         </div>
 
-        <div className="fta-container mt-12 flex flex-col items-stretch gap-3 px-0 sm:flex-row sm:justify-center">
-          <Link href="/" className={cn(buttonVariants(), "fta-btn-mobile-full")}>
+        <div className="mx-auto mt-12 flex max-w-4xl flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
+          <ButtonLink href="/" className="fta-btn-mobile-full">
             Back to webinars
-          </Link>
-          <Link
-            href="/webinar"
-            className={cn(buttonVariants({ variant: "outline-ink" }), "fta-btn-mobile-full")}
-          >
+          </ButtonLink>
+          <ButtonLink href="/webinar" variant="outline-ink" className="fta-btn-mobile-full">
             Preview live room
-          </Link>
+          </ButtonLink>
         </div>
-      </section>
+      </SectionWrapper>
     </main>
   );
 }
