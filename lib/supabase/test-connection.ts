@@ -17,10 +17,30 @@ export async function testSupabaseConnection(): Promise<SupabaseConnectionResult
   }
 
   const supabase = createClient(url, anonKey);
-  const { error } = await supabase.from("sessions").select("id").limit(1);
+  const { data, error } = await supabase
+    .from("sessions")
+    .select("topic, start_time")
+    .order("start_time", { ascending: true })
+    .limit(1);
+
+  const { data: users, error: usersError } = await supabase
+    .from("users")
+    .select("id")
+    .limit(1);
+
+  const usersBlocked =
+    usersError !== null || users === null || users.length === 0;
+
+  if (!error && data?.length) {
+    const rlsNote = usersBlocked ? " · RLS OK" : " · RLS warning: users readable";
+    return {
+      ok: usersBlocked,
+      message: `Connected — next session: “${data[0].topic}”${rlsNote}`,
+    };
+  }
 
   if (!error) {
-    return { ok: true, message: "Connected to Supabase (sessions table reachable)" };
+    return { ok: true, message: "Connected to Supabase (no sessions seeded yet)" };
   }
 
   if (error.code === "PGRST205" || error.message.includes("Could not find")) {

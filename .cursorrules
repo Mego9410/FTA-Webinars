@@ -18,3 +18,4 @@ SECURITY:
 CONVENTIONS:
 - Server time is the single source of truth for all webinar timing. Never trust the client clock for play position.
 - All currency/branding is FTA. CTA copy and links come from session config, not hardcoded.
+- Use the FTA design system in /styles/fta/ and /components/fta/. Gold (#E4AD25) + ink palette, Hanken Grotesk + Lora, sentence-case headings, gold primary buttons, no emoji.

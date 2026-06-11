@@ -1,20 +1,31 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Hanken_Grotesk, Lora } from "next/font/google";
+import { FtaFooter } from "@/components/fta/FtaFooter";
+import { FtaNav } from "@/components/fta/FtaNav";
+import { PreviewBanner } from "@/components/fta/PreviewBanner";
+import { isAdminPreviewMode } from "@/lib/admin";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const hankenGrotesk = Hanken_Grotesk({
+  variable: "--font-hanken",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const lora = Lora({
+  variable: "--font-lora",
   subsets: ["latin"],
+  weight: ["500", "600", "700"],
 });
 
 export const metadata: Metadata = {
   title: "FTA Webinars",
-  description: "Pre-recorded webinars that feel live",
+  description: "Expert webinars for dental practice owners — Frank Taylor & Associates",
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -25,9 +36,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${hankenGrotesk.variable} ${lora.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        {isAdminPreviewMode() ? <PreviewBanner /> : null}
+        <FtaNav />
+        {children}
+        <FtaFooter />
+      </body>
     </html>
   );
 }

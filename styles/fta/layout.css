@@ -1,0 +1,454 @@
+/* FTA layout utilities — subset of website kit */
+
+@media (max-width: 639px) {
+  :root {
+    --gutter: 16px;
+    --sp-16: 48px;
+    --sp-20: 56px;
+  }
+}
+
+.fta-container {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.fta-section {
+  padding-block: var(--sp-16);
+  padding-inline: var(--gutter);
+}
+
+@media (min-width: 768px) {
+  .fta-section {
+    padding-block: var(--sp-20);
+  }
+}
+
+.fta-band {
+  background: var(--surface-2);
+}
+
+.fta-eyebrow {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+.fta-status-ok {
+  border: 1px solid color-mix(in srgb, var(--available) 35%, transparent);
+  background: color-mix(in srgb, var(--available) 8%, white);
+  color: var(--available-fg);
+}
+
+.fta-status-error {
+  border: 1px solid color-mix(in srgb, #e53e3e 35%, transparent);
+  background: color-mix(in srgb, #e53e3e 8%, white);
+  color: #9b2c2c;
+}
+
+/* ---------- NAV ---------- */
+.fta-nav {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-xs);
+}
+
+.fta-nav-bar {
+  display: flex;
+  min-height: 64px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-block: 10px;
+}
+
+@media (min-width: 768px) {
+  .fta-nav-bar {
+    min-height: 78px;
+    gap: 16px;
+    padding-block: 0;
+  }
+}
+
+.fta-nav-desktop {
+  display: none;
+  align-items: center;
+  gap: 28px;
+}
+
+@media (min-width: 768px) {
+  .fta-nav-desktop {
+    display: flex;
+  }
+}
+
+.fta-nav-actions {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (min-width: 480px) {
+  .fta-nav-actions {
+    gap: 12px;
+  }
+}
+
+.fta-nav-link {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--fg-1);
+  transition: color var(--dur) var(--ease);
+}
+
+.fta-nav-link:hover {
+  color: var(--gold-deep);
+}
+
+.fta-nav-toggle {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  background: #fff;
+  cursor: pointer;
+}
+
+.fta-nav-toggle-bar {
+  display: block;
+  height: 2px;
+  width: 100%;
+  border-radius: 1px;
+  background: var(--ink);
+  transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+
+.fta-nav-toggle-bar.is-open:nth-child(2) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.fta-nav-toggle-bar.is-open:nth-child(3) {
+  opacity: 0;
+}
+
+.fta-nav-toggle-bar.is-open:nth-child(4) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.fta-nav-mobile {
+  display: none;
+  border-top: 1px solid var(--border);
+  background: #fff;
+  padding: 8px var(--gutter) 20px;
+}
+
+.fta-nav-mobile.is-open {
+  display: block;
+}
+
+.fta-nav-mobile-link {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--fg-1);
+  border-bottom: 1px solid var(--border);
+}
+
+.fta-nav-mobile-link:last-of-type {
+  border-bottom: none;
+}
+
+/* ---------- HERO ---------- */
+.fta-hero {
+  position: relative;
+  background: var(--ink-pure);
+}
+
+.fta-hero-inner {
+  display: flex;
+  min-height: min(62vh, 520px);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-block: clamp(40px, 10vw, 88px);
+  text-align: center;
+  color: #fff;
+}
+
+.fta-hero-eyebrow {
+  margin-bottom: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.fta-hero-title {
+  max-width: none;
+  font-size: clamp(1.75rem, 6.5vw, 3.5rem);
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+}
+
+@media (min-width: 768px) {
+  .fta-hero-title {
+    max-width: 18ch;
+  }
+}
+
+.fta-hero-lead {
+  margin-top: 20px;
+  max-width: 42rem;
+  font-size: clamp(1rem, 1.6vw, 1.125rem);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.fta-hero-session {
+  margin-top: 28px;
+  padding-inline: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--gold);
+  text-wrap: balance;
+}
+
+@media (min-width: 640px) {
+  .fta-hero-session {
+    margin-top: 36px;
+    font-size: 14px;
+  }
+}
+
+.fta-hero-countdown {
+  margin-top: 10px;
+}
+
+.fta-hero-countdown .fta-countdown-value {
+  font-size: clamp(2.25rem, 5vw, 3rem);
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+/* ---------- REGISTRATION PANEL ---------- */
+.fta-register-wrap {
+  position: relative;
+  z-index: 20;
+  margin-top: -40px;
+  padding-bottom: var(--sp-12);
+}
+
+@media (min-width: 640px) {
+  .fta-register-wrap {
+    margin-top: -64px;
+    padding-bottom: var(--sp-16);
+  }
+}
+
+@media (min-width: 768px) {
+  .fta-register-wrap {
+    margin-top: -88px;
+  }
+}
+
+.fta-search-panel {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: clamp(20px, 5vw, 44px);
+  box-shadow: var(--shadow-lg);
+}
+
+@media (min-width: 640px) {
+  .fta-search-panel {
+    border-radius: var(--r-xl);
+  }
+}
+
+.fta-search-panel h2 {
+  font-size: clamp(1.5rem, 2.5vw, 1.75rem);
+}
+
+.fta-search-panel .field {
+  border-color: var(--border);
+}
+
+.fta-search-panel .field:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-tint);
+}
+
+/* ---------- FEATURE CARDS ---------- */
+.fta-feature-grid {
+  display: grid;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .fta-feature-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+.fta-feature-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: #fff;
+  border-radius: var(--r-lg);
+  padding: 28px 26px;
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.fta-feature-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.fta-feature-card h3 {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--fg-1);
+}
+
+.fta-feature-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--fg-2);
+}
+
+/* ---------- CTA BANNER ---------- */
+.fta-cta-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 20px;
+  margin-block: var(--sp-8) var(--sp-16);
+  padding: clamp(22px, 5vw, 40px);
+  border-radius: var(--r-lg);
+  background: var(--gold);
+  box-shadow: var(--shadow-gold);
+}
+
+@media (min-width: 640px) {
+  .fta-cta-banner {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-block: var(--sp-10) var(--sp-20);
+  }
+}
+
+.fta-cta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.fta-cta-actions > * {
+  width: 100%;
+  justify-content: center;
+}
+
+@media (min-width: 480px) {
+  .fta-cta-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: auto;
+  }
+
+  .fta-cta-actions > * {
+    width: auto;
+  }
+}
+
+.fta-cta-banner h2 {
+  font-size: clamp(1.5rem, 2.5vw, 1.875rem);
+  color: var(--ink);
+}
+
+.fta-cta-banner p {
+  margin-top: 6px;
+  font-size: 15px;
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
+/* ---------- FOOTER ---------- */
+.footer-head {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.footer-link {
+  display: block;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 10px;
+  transition: color var(--dur) var(--ease);
+}
+
+.footer-link:hover {
+  color: #fff;
+}
+
+/* ---------- PREVIEW BANNER ---------- */
+.fta-preview-banner {
+  background: var(--gold-tint);
+  border-bottom: 1px solid color-mix(in srgb, var(--gold) 25%, transparent);
+  color: color-mix(in srgb, var(--ink) 80%, transparent);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.45;
+  text-align: center;
+  text-wrap: balance;
+  padding: 8px var(--gutter);
+}
+
+@media (min-width: 640px) {
+  .fta-preview-banner {
+    font-size: 12px;
+  }
+}
+
+/* ---------- MOBILE UTILITIES ---------- */
+.fta-btn-mobile-full {
+  width: 100%;
+  justify-content: center;
+}
+
+@media (min-width: 480px) {
+  .fta-btn-mobile-full {
+    width: auto;
+  }
+}
+
+.fta-page-heading {
+  font-size: clamp(1.75rem, 6vw, var(--fs-h1));
+  line-height: var(--lh-h1);
+}
