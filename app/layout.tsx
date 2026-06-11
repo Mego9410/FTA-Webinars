@@ -21,6 +21,12 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "FTA Webinars",
   description: "Expert webinars for dental practice owners — Frank Taylor & Associates",
+  openGraph: {
+    title: "FTA Webinars",
+    description:
+      "Expert webinars for dental practice owners — Frank Taylor & Associates",
+    images: [{ url: "/images/fta-og.jpg", width: 1200, height: 630 }],
+  },
 };
 
 export const viewport = {

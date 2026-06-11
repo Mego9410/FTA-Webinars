@@ -16,7 +16,7 @@ export function FtaCard({
       className={cn(
         "rounded-card border border-fta-border bg-fta-bg p-7 shadow-card md:p-8",
         interactive &&
-          "transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-card-hover",
+          "group transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-card-hover",
         className,
       )}
     >

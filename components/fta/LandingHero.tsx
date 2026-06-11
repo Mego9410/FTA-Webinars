@@ -1,7 +1,12 @@
 import { Award, Shield, UserRound } from "lucide-react";
+import Image from "next/image";
 import { CaptureForm } from "@/components/CaptureForm";
 import { Countdown } from "@/components/Countdown";
 import { WelcomeBack } from "@/components/WelcomeBack";
+import { AboutSection } from "@/components/fta/landing/AboutSection";
+import { HostsSection } from "@/components/fta/landing/HostsSection";
+import { HowItWorksSection } from "@/components/fta/landing/HowItWorksSection";
+import { ValueTabsSection } from "@/components/fta/landing/ValueTabsSection";
 import { FtaCard } from "@/components/fta/FtaCard";
 import { IconBadge } from "@/components/fta/IconBadge";
 import { Pill } from "@/components/fta/Pill";
@@ -45,6 +50,14 @@ export function LandingHero({
   return (
     <>
       <section className="fta-hero fta-reveal">
+        <Image
+          src="/images/stock/hero-dental-clinic.webp"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="fta-hero-media"
+        />
         <div className="fta-hero-inner">
           <p className="fta-hero-eyebrow">Frank Taylor &amp; Associates webinars</p>
           <h1 className="fta-hero-title">
@@ -124,6 +137,11 @@ export function LandingHero({
           ))}
         </div>
       </SectionWrapper>
+
+      <AboutSection />
+      <ValueTabsSection />
+      <HowItWorksSection />
+      <HostsSection />
 
       <div className="fta-container pt-16 md:pt-24 pb-20 md:pb-28">
         <div className="fta-cta-panel flex flex-col gap-6 md:flex-row md:items-center md:justify-between">

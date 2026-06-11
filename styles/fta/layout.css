@@ -195,15 +195,23 @@
   position: relative;
   overflow: hidden;
   background-color: var(--fta-ink);
-  background-image: url("/fta/hero.jpg");
-  background-size: cover;
-  background-position: center 30%;
+}
+
+.fta-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center 30%;
 }
 
 .fta-hero::before {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
   background:
     radial-gradient(ellipse 80% 60% at 50% 0%, rgba(229, 163, 35, 0.16), transparent 60%),
     linear-gradient(
@@ -378,7 +386,7 @@
       rgba(245, 243, 239, 0.9) 0%,
       rgba(245, 243, 239, 0.96) 100%
     ),
-    url("/fta/trust-band.jpg");
+    url("/images/stock/trust-dental.webp");
   background-size: cover;
   background-position: center;
 }
@@ -391,7 +399,7 @@
       rgba(245, 243, 239, 0.86) 0%,
       rgba(245, 243, 239, 0.94) 100%
     ),
-    url("/fta/contact.jpg");
+    url("/images/stock/contact-clinic.webp");
   background-size: cover;
   background-position: center top;
 }
