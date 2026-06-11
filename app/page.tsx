@@ -8,10 +8,17 @@ export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const serverNowMs = Date.now();
-  const [dbSession, returningUser] = await Promise.all([
-    getNextSession(),
-    getReturningUser(),
-  ]);
+  let dbSession: Awaited<ReturnType<typeof getNextSession>> = null;
+  let returningUser: Awaited<ReturnType<typeof getReturningUser>> = null;
+
+  try {
+    [dbSession, returningUser] = await Promise.all([
+      getNextSession(),
+      getReturningUser(),
+    ]);
+  } catch {
+    // Fall back to demo content if Supabase is unavailable or misconfigured.
+  }
 
   const session = dbSession ?? {
     ...createDemoSession(serverNowMs),

@@ -1,4 +1,5 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import { isSupabaseAnonConfigured } from "@/lib/supabase/config";
 
 export type WebinarSession = {
   id: string;
@@ -15,7 +16,9 @@ export type WebinarSession = {
 const SESSION_FIELDS =
   "id, topic, description, host_name, start_time, duration_seconds, mux_playback_id, cta_label, cta_url";
 
-function createAnonClient() {
+function createAnonClient(): SupabaseClient | null {
+  if (!isSupabaseAnonConfigured()) return null;
+
   return createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -26,6 +29,8 @@ export async function getNextUpcomingSession(
   nowMs = Date.now(),
 ): Promise<WebinarSession | null> {
   const supabase = createAnonClient();
+  if (!supabase) return null;
+
   const { data } = await supabase
     .from("sessions")
     .select(SESSION_FIELDS)
@@ -41,6 +46,8 @@ export async function getActiveSession(
   nowMs = Date.now(),
 ): Promise<WebinarSession | null> {
   const supabase = createAnonClient();
+  if (!supabase) return null;
+
   const { data: candidates } = await supabase
     .from("sessions")
     .select(SESSION_FIELDS)
@@ -63,6 +70,8 @@ export async function getActiveSession(
 
 export async function getLatestSession(): Promise<WebinarSession | null> {
   const supabase = createAnonClient();
+  if (!supabase) return null;
+
   const { data } = await supabase
     .from("sessions")
     .select(SESSION_FIELDS)

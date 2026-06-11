@@ -2,6 +2,7 @@ import "server-only";
 
 import { cookies } from "next/headers";
 import { USER_COOKIE, verifyCookieValue } from "@/lib/cookies";
+import { isSupabaseServiceConfigured } from "@/lib/supabase/config";
 import { createServiceClient } from "@/lib/supabase/server";
 
 export type ReturningUser = {
@@ -16,7 +17,7 @@ export async function getReturningUser(): Promise<ReturningUser | null> {
   if (!raw) return null;
 
   const userId = verifyCookieValue(raw);
-  if (!userId) return null;
+  if (!userId || !isSupabaseServiceConfigured()) return null;
 
   const supabase = createServiceClient();
   const { data } = await supabase
