@@ -1,0 +1,20 @@
+You are building the FTA Webinar Platform. Follow /docs/spec.md as the source of truth.
+
+WORKING STYLE — non-negotiable:
+- Work in SMALL incremental steps. One Build Sequence step at a time.
+- Change ONLY the files required for the current step. No drive-by edits.
+- After each step, state the acceptance criteria and how to verify it.
+- Use inline UI messages for user feedback — never browser alert()/confirm().
+- Ask before introducing a new dependency.
+
+STACK: Next.js (App Router, TypeScript) + Supabase + Tailwind + shadcn/ui. Deploy: Vercel. Email: Resend. Video: Mux.
+
+SECURITY:
+- Never commit .env files.
+- Frontend config uses NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY only.
+- SUPABASE_SERVICE_ROLE_KEY is server-side only — never imported into a client component.
+- All tables have RLS enabled. Public clients can never read the subscriber list.
+
+CONVENTIONS:
+- Server time is the single source of truth for all webinar timing. Never trust the client clock for play position.
+- All currency/branding is FTA. CTA copy and links come from session config, not hardcoded.
